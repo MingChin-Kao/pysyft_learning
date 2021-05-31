@@ -1,0 +1,465 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Collecting torch\n",
+      "  Downloading torch-1.8.1-cp38-none-macosx_10_9_x86_64.whl (119.6 MB)\n",
+      "\u001b[K     |████████████████████████████████| 119.6 MB 27 kB/s  eta 0:00:01   |▎                               | 952 kB 458 kB/s eta 0:04:19     |▊                               | 2.6 MB 929 kB/s eta 0:02:06     |█                               | 3.9 MB 2.9 MB/s eta 0:00:40     |█▌                              | 5.6 MB 3.5 MB/s eta 0:00:33     |██▏                             | 7.9 MB 1.4 MB/s eta 0:01:20     |███▎                            | 12.1 MB 1.5 MB/s eta 0:01:11     |████                            | 15.2 MB 109 kB/s eta 0:15:51     |████▊                           | 17.8 MB 1.2 MB/s eta 0:01:24     |██████▎                         | 23.5 MB 494 kB/s eta 0:03:15     |███████                         | 26.3 MB 204 kB/s eta 0:07:36     |████████▎                       | 31.1 MB 1.7 MB/s eta 0:00:52     |██████████▉                     | 40.6 MB 2.8 MB/s eta 0:00:29     |███████████                     | 40.7 MB 2.8 MB/s eta 0:00:29     |███████████▍                    | 42.6 MB 2.2 MB/s eta 0:00:35     |███████████▊                    | 43.8 MB 1.8 MB/s eta 0:00:44     |████████████▋                   | 47.2 MB 1.7 MB/s eta 0:00:42     |█████████████                   | 48.3 MB 1.7 MB/s eta 0:00:42     |█████████████▏                  | 49.2 MB 504 kB/s eta 0:02:20     |█████████████▋                  | 51.1 MB 14.6 MB/s eta 0:00:05     |██████████████▌                 | 54.0 MB 2.0 MB/s eta 0:00:34     |███████████████▉                | 59.0 MB 2.1 MB/s eta 0:00:30     |████████████████▋               | 62.2 MB 1.7 MB/s eta 0:00:35     |██████████████████▊             | 70.0 MB 1.4 MB/s eta 0:00:37     |████████████████████▎           | 75.9 MB 1.5 MB/s eta 0:00:30     |████████████████████▋           | 77.2 MB 2.3 MB/s eta 0:00:19     |██████████████████████          | 82.2 MB 2.1 MB/s eta 0:00:18     |█████████████████████████       | 93.2 MB 1.8 MB/s eta 0:00:15     |█████████████████████████▍      | 94.7 MB 1.6 MB/s eta 0:00:16     |██████████████████████████▌     | 99.2 MB 573 kB/s eta 0:00:36     |███████████████████████████▌    | 102.9 MB 2.7 MB/s eta 0:00:07     |███████████████████████████▉    | 103.8 MB 2.0 MB/s eta 0:00:08 0:00:08     |████████████████████████████▋   | 106.7 MB 1.6 MB/s eta 0:00:09     |████████████████████████████▊   | 107.3 MB 1.0 MB/s eta 0:00:12     |████████████████████████████▉   | 107.6 MB 1.0 MB/s eta 0:00:12     |███████████████████████████████▊| 118.5 MB 570 kB/s eta 0:00:02     |███████████████████████████████▉| 118.9 MB 2.8 MB/s eta 0:00:01     |████████████████████████████████| 119.5 MB 2.8 MB/s eta 0:00:01\n",
+      "\u001b[?25hRequirement already satisfied: numpy in /Users/kao/opt/anaconda3/lib/python3.8/site-packages (from torch) (1.19.2)\n",
+      "Requirement already satisfied: typing-extensions in /Users/kao/opt/anaconda3/lib/python3.8/site-packages (from torch) (3.7.4.3)\n",
+      "Installing collected packages: torch\n",
+      "Successfully installed torch-1.8.1\n",
+      "Note: you may need to restart the kernel to use updated packages.\n"
+     ]
+    }
+   ],
+   "source": [
+    "pip install torch"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Collecting torchvision\n",
+      "  Downloading torchvision-0.9.1-cp38-cp38-macosx_10_9_x86_64.whl (13.2 MB)\n",
+      "\u001b[K     |████████████████████████████████| 13.2 MB 2.0 MB/s eta 0:00:01    |███████                         | 2.9 MB 519 kB/s eta 0:00:20     |████████████▊                   | 5.2 MB 531 kB/s eta 0:00:15     |██████████████████████▌         | 9.3 MB 391 kB/s eta 0:00:10     |███████████████████████▌        | 9.7 MB 640 kB/s eta 0:00:06     |███████████████████████████▌    | 11.3 MB 640 kB/s eta 0:00:03     |███████████████████████████████▍| 12.9 MB 2.0 MB/s eta 0:00:01\n",
+      "\u001b[?25hRequirement already satisfied: torch==1.8.1 in /Users/kao/opt/anaconda3/lib/python3.8/site-packages (from torchvision) (1.8.1)\n",
+      "Requirement already satisfied: numpy in /Users/kao/opt/anaconda3/lib/python3.8/site-packages (from torchvision) (1.19.2)\n",
+      "Requirement already satisfied: pillow>=4.1.1 in /Users/kao/opt/anaconda3/lib/python3.8/site-packages (from torchvision) (8.0.1)\n",
+      "Requirement already satisfied: typing-extensions in /Users/kao/opt/anaconda3/lib/python3.8/site-packages (from torch==1.8.1->torchvision) (3.7.4.3)\n",
+      "Installing collected packages: torchvision\n",
+      "Successfully installed torchvision-0.9.1\n",
+      "Note: you may need to restart the kernel to use updated packages.\n"
+     ]
+    }
+   ],
+   "source": [
+    "pip install torchvision"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from __future__ import print_function\n",
+    "import argparse\n",
+    "import torch\n",
+    "import torch.nn as nn\n",
+    "import torch.nn.functional as F\n",
+    "import torch.optim as optim\n",
+    "from torchvision import datasets, transforms\n",
+    "from torch.optim.lr_scheduler import StepLR"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Net(nn.Module):\n",
+    "    # Conv2d(in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1, bias=True)\n",
+    "\n",
+    "    def __init__(self):\n",
+    "        super(Net, self).__init__()\n",
+    "        self.conv1 = nn.Conv2d(1, 32, 3, 1) #定義一個卷積層\n",
+    "        self.conv2 = nn.Conv2d(32, 64, 3, 1)\n",
+    "        self.dropout1 = nn.Dropout(0.25)\n",
+    "        self.dropout2 = nn.Dropout(0.5)\n",
+    "        self.fc1 = nn.Linear(9216, 128) #定義一個全連接層\n",
+    "        self.fc2 = nn.Linear(128, 10)\n",
+    "\n",
+    "    def forward(self, x):\n",
+    "        x = self.conv1(x)\n",
+    "        x = F.relu(x)\n",
+    "        x = self.conv2(x)\n",
+    "        x = F.relu(x)\n",
+    "        x = F.max_pool2d(x, 2)\n",
+    "        x = self.dropout1(x)\n",
+    "        x = torch.flatten(x, 1)\n",
+    "        x = self.fc1(x)\n",
+    "        x = F.relu(x)\n",
+    "        x = self.dropout2(x)\n",
+    "        x = self.fc2(x)\n",
+    "        output = F.log_softmax(x, dim=1)\n",
+    "        return output"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def train(args, model, device, train_loader, optimizer, epoch):\n",
+    "    # device => 模型在哪個設備上，CPU or GPU\n",
+    "    # train_loader => 指數據集\n",
+    "    # epoch => 整個數據及訓練的次數\n",
+    "    model.train()  # 將模型設置為訓練狀態\n",
+    "    for batch_idx, (data, target) in enumerate(train_loader):\n",
+    "        data, target = data.to(device), target.to(device) # data為圖像, target為label\n",
+    "        optimizer.zero_grad() # 清除緩衝的梯度\n",
+    "        output = model(data) # 模型輸出\n",
+    "        loss = F.nll_loss(output, target)\n",
+    "        loss.backward() # 反向傳播，計算梯度\n",
+    "        optimizer.step() # 更新參數\n",
+    "        if batch_idx % args.log_interval == 0:\n",
+    "            print('Train Epoch: {} [{}/{} ({:.0f}%)]\\tLoss: {:.6f}'.format(\n",
+    "                epoch, batch_idx * len(data), len(train_loader.dataset),\n",
+    "                100. * batch_idx / len(train_loader), loss.item()))\n",
+    "            if args.dry_run:\n",
+    "                break\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def test(model, device, test_loader):\n",
+    "    model.eval() # 只有forward，沒有反向球梯度調參數\n",
+    "    test_loss = 0\n",
+    "    correct = 0\n",
+    "    with torch.no_grad():\n",
+    "        for data, target in test_loader:\n",
+    "            data, target = data.to(device), target.to(device)\n",
+    "            output = model(data)\n",
+    "            test_loss += F.nll_loss(output, target, reduction='sum').item()  # sum up batch loss\n",
+    "            pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability\n",
+    "            correct += pred.eq(target.view_as(pred)).sum().item()\n",
+    "\n",
+    "    test_loss /= len(test_loader.dataset) # 損失的平均值\n",
+    "\n",
+    "    print('\\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\\n'.format(\n",
+    "        test_loss, correct, len(test_loader.dataset),\n",
+    "        100. * correct / len(test_loader.dataset)))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def main():\n",
+    "    # Training settings\n",
+    "    parser = argparse.ArgumentParser(description='PyTorch MNIST Example')\n",
+    "    parser.add_argument('--batch-size', type=int, default=100, metavar='N',\n",
+    "                        help='input batch size for training (default: 64)')\n",
+    "    parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',\n",
+    "                        help='input batch size for testing (default: 1000)')\n",
+    "    parser.add_argument('--epochs', type=int, default=1, metavar='N',\n",
+    "                        help='number of epochs to train (default: 14)')\n",
+    "    parser.add_argument('--lr', type=float, default=1.0, metavar='LR',\n",
+    "                        help='learning rate (default: 1.0)')\n",
+    "    parser.add_argument('--gamma', type=float, default=0.7, metavar='M',\n",
+    "                        help='Learning rate step gamma (default: 0.7)')\n",
+    "    parser.add_argument('--no-cuda', action='store_true', default=False,\n",
+    "                        help='disables CUDA training')\n",
+    "    parser.add_argument('--dry-run', action='store_true', default=False,\n",
+    "                        help='quickly check a single pass')\n",
+    "    parser.add_argument('--seed', type=int, default=1, metavar='S',\n",
+    "                        help='random seed (default: 1)')\n",
+    "    parser.add_argument('--log-interval', type=int, default=10, metavar='N',\n",
+    "                        help='how many batches to wait before logging training status')\n",
+    "    parser.add_argument('--save-model', action='store_true', default=False,\n",
+    "                        help='For Saving the current Model')\n",
+    "    # args = parser.parse_args()\n",
+    "    args = parser.parse_args(args=[])\n",
+    "    use_cuda = not args.no_cuda and torch.cuda.is_available()\n",
+    "\n",
+    "    torch.manual_seed(args.seed)\n",
+    "\n",
+    "    device = torch.device(\"cuda\" if use_cuda else \"cpu\")\n",
+    "\n",
+    "    train_kwargs = {'batch_size': args.batch_size}\n",
+    "    test_kwargs = {'batch_size': args.test_batch_size}\n",
+    "    if use_cuda:\n",
+    "        cuda_kwargs = {'num_workers': 1,\n",
+    "                       'pin_memory': True,\n",
+    "                       'shuffle': True}\n",
+    "        train_kwargs.update(cuda_kwargs)\n",
+    "        test_kwargs.update(cuda_kwargs)\n",
+    "\n",
+    "    transform=transforms.Compose([\n",
+    "        transforms.ToTensor(),\n",
+    "        transforms.Normalize((0.1307,), (0.3081,))\n",
+    "        ])\n",
+    "    dataset1 = datasets.MNIST('./data', train=True, download=True,\n",
+    "                       transform=transform)\n",
+    "    dataset2 = datasets.MNIST('./data', train=False,\n",
+    "                       transform=transform)\n",
+    "    train_loader = torch.utils.data.DataLoader(dataset1,**train_kwargs)\n",
+    "    test_loader = torch.utils.data.DataLoader(dataset2, **test_kwargs)\n",
+    "\n",
+    "    model = Net().to(device)\n",
+    "    optimizer = optim.Adadelta(model.parameters(), lr=args.lr)\n",
+    "\n",
+    "    scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)\n",
+    "    for epoch in range(1, args.epochs + 1):\n",
+    "        train(args, model, device, train_loader, optimizer, epoch)\n",
+    "        test(model, device, test_loader)\n",
+    "        scheduler.step()\n",
+    "\n",
+    "    if args.save_model:\n",
+    "        torch.save(model.state_dict(), \"mnist_cnn.pt\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz\n",
+      "Failed to download (trying next):\n",
+      "HTTP Error 503: Service Unavailable\n",
+      "\n",
+      "Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyte.gz\n",
+      "Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyte.gz to ./data/MNIST/raw/train-images-idx3-ubyte.gz\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "bc2347055dc44e949f71d2bb06313e34",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "HBox(children=(HTML(value=''), FloatProgress(value=0.0, max=9912422.0), HTML(value='')))"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "Extracting ./data/MNIST/raw/train-images-idx3-ubyte.gz to ./data/MNIST/raw\n",
+      "\n",
+      "Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz\n",
+      "Failed to download (trying next):\n",
+      "HTTP Error 503: Service Unavailable\n",
+      "\n",
+      "Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-labels-idx1-ubyte.gz\n",
+      "Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-labels-idx1-ubyte.gz to ./data/MNIST/raw/train-labels-idx1-ubyte.gz\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "4865fa26331a47488e4ff62b35fc892e",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "HBox(children=(HTML(value=''), FloatProgress(value=0.0, max=28881.0), HTML(value='')))"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "Extracting ./data/MNIST/raw/train-labels-idx1-ubyte.gz to ./data/MNIST/raw\n",
+      "\n",
+      "Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz\n",
+      "Failed to download (trying next):\n",
+      "HTTP Error 503: Service Unavailable\n",
+      "\n",
+      "Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-images-idx3-ubyte.gz\n",
+      "Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-images-idx3-ubyte.gz to ./data/MNIST/raw/t10k-images-idx3-ubyte.gz\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "967074fec54d4a318dc0ab410fa627a6",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "HBox(children=(HTML(value=''), FloatProgress(value=0.0, max=1648877.0), HTML(value='')))"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "Extracting ./data/MNIST/raw/t10k-images-idx3-ubyte.gz to ./data/MNIST/raw\n",
+      "\n",
+      "Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz\n",
+      "Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz to ./data/MNIST/raw/t10k-labels-idx1-ubyte.gz\n",
+      "Failed to download (trying next):\n",
+      "HTTP Error 503: Service Unavailable\n",
+      "\n",
+      "Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-labels-idx1-ubyte.gz\n",
+      "Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-labels-idx1-ubyte.gz to ./data/MNIST/raw/t10k-labels-idx1-ubyte.gz\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "7d86a8fefcd547c38c7cfc26aecb3117",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "HBox(children=(HTML(value=''), FloatProgress(value=0.0, max=4542.0), HTML(value='')))"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "Extracting ./data/MNIST/raw/t10k-labels-idx1-ubyte.gz to ./data/MNIST/raw\n",
+      "\n",
+      "Processing...\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/Users/kao/opt/anaconda3/lib/python3.8/site-packages/torchvision/datasets/mnist.py:502: UserWarning: The given NumPy array is not writeable, and PyTorch does not support non-writeable tensors. This means you can write to the underlying (supposedly non-writeable) NumPy array using the tensor. You may want to copy the array to protect its data or make it writeable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at  ../torch/csrc/utils/tensor_numpy.cpp:143.)\n",
+      "  return torch.from_numpy(parsed.astype(m[2], copy=False)).view(*s)\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Done!\n",
+      "Train Epoch: 1 [0/60000 (0%)]\tLoss: 2.301824\n",
+      "Train Epoch: 1 [1000/60000 (2%)]\tLoss: 1.501182\n",
+      "Train Epoch: 1 [2000/60000 (3%)]\tLoss: 0.627138\n",
+      "Train Epoch: 1 [3000/60000 (5%)]\tLoss: 0.533265\n",
+      "Train Epoch: 1 [4000/60000 (7%)]\tLoss: 0.337019\n",
+      "Train Epoch: 1 [5000/60000 (8%)]\tLoss: 0.242321\n",
+      "Train Epoch: 1 [6000/60000 (10%)]\tLoss: 0.222811\n",
+      "Train Epoch: 1 [7000/60000 (12%)]\tLoss: 0.346690\n",
+      "Train Epoch: 1 [8000/60000 (13%)]\tLoss: 0.159151\n",
+      "Train Epoch: 1 [9000/60000 (15%)]\tLoss: 0.222120\n",
+      "Train Epoch: 1 [10000/60000 (17%)]\tLoss: 0.263429\n",
+      "Train Epoch: 1 [11000/60000 (18%)]\tLoss: 0.165926\n",
+      "Train Epoch: 1 [12000/60000 (20%)]\tLoss: 0.201422\n",
+      "Train Epoch: 1 [13000/60000 (22%)]\tLoss: 0.274375\n",
+      "Train Epoch: 1 [14000/60000 (23%)]\tLoss: 0.246570\n",
+      "Train Epoch: 1 [15000/60000 (25%)]\tLoss: 0.058992\n",
+      "Train Epoch: 1 [16000/60000 (27%)]\tLoss: 0.199050\n",
+      "Train Epoch: 1 [17000/60000 (28%)]\tLoss: 0.276142\n",
+      "Train Epoch: 1 [18000/60000 (30%)]\tLoss: 0.131784\n",
+      "Train Epoch: 1 [19000/60000 (32%)]\tLoss: 0.212053\n",
+      "Train Epoch: 1 [20000/60000 (33%)]\tLoss: 0.205445\n",
+      "Train Epoch: 1 [21000/60000 (35%)]\tLoss: 0.164769\n",
+      "Train Epoch: 1 [22000/60000 (37%)]\tLoss: 0.025353\n",
+      "Train Epoch: 1 [23000/60000 (38%)]\tLoss: 0.138226\n",
+      "Train Epoch: 1 [24000/60000 (40%)]\tLoss: 0.081030\n",
+      "Train Epoch: 1 [25000/60000 (42%)]\tLoss: 0.078080\n",
+      "Train Epoch: 1 [26000/60000 (43%)]\tLoss: 0.149126\n",
+      "Train Epoch: 1 [27000/60000 (45%)]\tLoss: 0.101402\n",
+      "Train Epoch: 1 [28000/60000 (47%)]\tLoss: 0.105274\n",
+      "Train Epoch: 1 [29000/60000 (48%)]\tLoss: 0.082522\n",
+      "Train Epoch: 1 [30000/60000 (50%)]\tLoss: 0.172168\n",
+      "Train Epoch: 1 [31000/60000 (52%)]\tLoss: 0.094606\n",
+      "Train Epoch: 1 [32000/60000 (53%)]\tLoss: 0.129680\n",
+      "Train Epoch: 1 [33000/60000 (55%)]\tLoss: 0.135223\n",
+      "Train Epoch: 1 [34000/60000 (57%)]\tLoss: 0.113430\n",
+      "Train Epoch: 1 [35000/60000 (58%)]\tLoss: 0.087434\n",
+      "Train Epoch: 1 [36000/60000 (60%)]\tLoss: 0.170466\n",
+      "Train Epoch: 1 [37000/60000 (62%)]\tLoss: 0.383017\n",
+      "Train Epoch: 1 [38000/60000 (63%)]\tLoss: 0.054964\n",
+      "Train Epoch: 1 [39000/60000 (65%)]\tLoss: 0.035287\n",
+      "Train Epoch: 1 [40000/60000 (67%)]\tLoss: 0.109220\n",
+      "Train Epoch: 1 [41000/60000 (68%)]\tLoss: 0.094022\n",
+      "Train Epoch: 1 [42000/60000 (70%)]\tLoss: 0.161046\n",
+      "Train Epoch: 1 [43000/60000 (72%)]\tLoss: 0.079895\n",
+      "Train Epoch: 1 [44000/60000 (73%)]\tLoss: 0.184652\n",
+      "Train Epoch: 1 [45000/60000 (75%)]\tLoss: 0.174766\n",
+      "Train Epoch: 1 [46000/60000 (77%)]\tLoss: 0.106335\n",
+      "Train Epoch: 1 [47000/60000 (78%)]\tLoss: 0.157755\n",
+      "Train Epoch: 1 [48000/60000 (80%)]\tLoss: 0.103414\n",
+      "Train Epoch: 1 [49000/60000 (82%)]\tLoss: 0.157396\n",
+      "Train Epoch: 1 [50000/60000 (83%)]\tLoss: 0.038557\n",
+      "Train Epoch: 1 [51000/60000 (85%)]\tLoss: 0.024413\n",
+      "Train Epoch: 1 [52000/60000 (87%)]\tLoss: 0.145637\n",
+      "Train Epoch: 1 [53000/60000 (88%)]\tLoss: 0.088033\n",
+      "Train Epoch: 1 [54000/60000 (90%)]\tLoss: 0.080289\n",
+      "Train Epoch: 1 [55000/60000 (92%)]\tLoss: 0.017088\n",
+      "Train Epoch: 1 [56000/60000 (93%)]\tLoss: 0.080742\n",
+      "Train Epoch: 1 [57000/60000 (95%)]\tLoss: 0.093487\n",
+      "Train Epoch: 1 [58000/60000 (97%)]\tLoss: 0.077389\n",
+      "Train Epoch: 1 [59000/60000 (98%)]\tLoss: 0.004387\n",
+      "\n",
+      "Test set: Average loss: 0.0539, Accuracy: 9814/10000 (98%)\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "main()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
